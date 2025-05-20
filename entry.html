@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Data Entry</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: #f5f7fa;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    h1 {
+      color: #763711;
+      margin-bottom: 40px;
+      font-size: 2.5rem;
+      font-weight: 700;
+      text-align: center;
+    }
+    .form-container {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+    .form-group {
+      margin-bottom: 16px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .submit-button {
+      padding: 12px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 10px;
+      background-color: #f9b703;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      width: 100%;
+    }
+    .submit-button:hover {
+      background-color: #f59e0b;
+    }
+  </style>
+</head>
+<body>
+  <h1>New Profile Entry</h1>
+  <div class="form-container">
+    <form id="dataEntryForm">
+      <div class="form-group">
+        <label for="profileCode">Profile Code</label>
+        <input type="text" id="profileCode" required />
+      </div>
+      <div class="form-group">
+        <label for="profileName">Profile Name</label>
+        <input type="text" id="profileName" required />
+      </div>
+      <div class="form-group">
+        <label for="weightPerMeter">Weight per Meter</label>
+        <input type="number" id="weightPerMeter" required min="0" step="any" />
+      </div>
+      <button type="submit" class="submit-button">Add Profile</button>
+    </form>
+  </div>
+
+  <script>
+    const dataEntryForm = document.getElementById('dataEntryForm');
+
+    dataEntryForm.addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent the default form submission
+
+      const profileCode = document.getElementById('profileCode').value.trim();
+      const profileName = document.getElementById('profileName').value.trim();
+      const weightPerMeter = document.getElementById('weightPerMeter').value.trim();
+
+      const weightVal = parseFloat(weightPerMeter);
+      if (!(weightVal > 0)) {
+        alert("Weight per Meter must be a number greater than 0.");
+        return;
+      }
+
+      const profile = {
+        profileCode,
+        profileName,
+        weightPerMeter: weightVal
+      };
+
+      // Load existing entries from localStorage
+      let savedEntries = JSON.parse(localStorage.getItem('profileDataEntries')) || [];
+
+      // Add the new profile to the entries
+      savedEntries.push(profile);
+
+      // Save updated entries back to localStorage
+      localStorage.setItem('profileDataEntries', JSON.stringify(savedEntries));
+
+      // Redirect to the details page (change as needed)
+      window.location.href = 'detail.html';
+    });
+  </script>
+</body>
+</html>

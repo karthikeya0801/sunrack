@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Daily Data Updation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: #f5f7fa;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    h1 {
+      color: #763711;
+      margin-bottom: 40px;
+      font-size: 2.5rem;
+      font-weight: 700;
+      text-align: center;
+    }
+    .form-container {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 500px;
+    }
+    .form-group {
+      margin-bottom: 16px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .submit-button {
+      padding: 12px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 10px;
+      background-color: #f9b703;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      width: 100%;
+    }
+    .submit-button:hover {
+      background-color: #f59e0b;
+    }
+    .success-message {
+      margin-top: 15px;
+      padding: 10px;
+      color: #0f5132;
+      background-color: #d1e7dd;
+      border: 1px solid #badbcc;
+      border-radius: 5px;
+      text-align: center;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>Daily Data Updation</h1>
+  <div class="form-container">
+    <form id="dailyUpdateForm">
+      <div class="form-group">
+        <label for="profileCode">Profile Code</label>
+        <input type="text" id="profileCode" required />
+      </div>
+      <div class="form-group">
+        <label for="profileName">Profile Name</label>
+        <input type="text" id="profileName" required />
+      </div>
+      <div class="form-group">
+        <label for="profileType">Profile Type</label>
+        <input type="text" id="profileType" required />
+      </div>
+      <div class="form-group">
+        <label for="weightPerMeter">Weight per Meter</label>
+        <input type="number" step="0.01" id="weightPerMeter" required />
+      </div>
+      <fieldset style="margin-bottom: 16px; border: 1px solid #ccc; padding: 10px; border-radius: 5px;">
+        <legend style="font-weight: 600; color: #763711;">Outward</legend>
+        <div class="form-group">
+          <label for="outwardDate">Date</label>
+          <input type="date" id="outwardDate" required />
+        </div>
+        <div class="form-group">
+          <label for="stockUsed">Amount of Stock Used</label>
+          <input type="number" id="stockUsed" required />
+        </div>
+      </fieldset>
+      <button type="submit" class="submit-button">Update Data</button>
+      <div class="success-message" id="successMessage">Data updated successfully!</div>
+    </form>
+  </div>
+
+  <script>
+    const dailyUpdateForm = document.getElementById('dailyUpdateForm');
+    const successMessage = document.getElementById('successMessage');
+
+    dailyUpdateForm.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const data = {
+        profileCode: document.getElementById('profileCode').value,
+        profileName: document.getElementById('profileName').value,
+        profileType: document.getElementById('profileType').value,
+        weightPerMeter: document.getElementById('weightPerMeter').value,
+        outward: {
+          date: document.getElementById('outwardDate').value,
+          stockUsed: document.getElementById('stockUsed').value
+        }
+      };
+
+      let updates = JSON.parse(localStorage.getItem('dailyProfileUpdates')) || [];
+      updates.push(data);
+      localStorage.setItem('dailyProfileUpdates', JSON.stringify(updates));
+
+      successMessage.style.display = 'block';
+      dailyUpdateForm.reset();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Additional Profile Details</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: #f5f7fa;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    h1 {
+      color: #763711;
+      margin-bottom: 40px;
+      font-size: 2.5rem;
+      font-weight: 700;
+      text-align: center;
+    }
+    .form-container {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .form-group {
+      margin-bottom: 16px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .submit-button {
+      padding: 12px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 10px;
+      background-color: #f9b703;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      width: 100%;
+      margin-bottom: 12px;
+    }
+    .submit-button:hover {
+      background-color: #f59e0b;
+    }
+    .go-home-button {
+      padding: 12px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 10px;
+      background-color: #3b82f6;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      width: 100%;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .go-home-button:hover {
+      background-color: #2574eb;
+    }
+    .success-message {
+      margin-top: 15px;
+      padding: 10px;
+      color: #0f5132;
+      background-color: #d1e7dd;
+      border: 1px solid #badbcc;
+      border-radius: 5px;
+      text-align: center;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>Additional Profile Details</h1>
+  <div class="form-container">
+    <form id="detailsEntryForm">
+      <div class="form-group">
+        <label for="profileType">Profile Type</label>
+        <input type="text" id="profileType" required />
+      </div>
+      <div class="form-group">
+        <label for="lengthInMM">Length in mm</label>
+        <input type="number" id="lengthInMM" required />
+      </div>
+      <div class="form-group">
+        <label for="openingStock">Opening Stock</label>
+        <input type="number" id="openingStock" required />
+      </div>
+      <div class="form-group">
+        <label for="inward">Inward</label>
+        <input type="number" id="inward" required />
+      </div>
+      <button type="submit" class="submit-button">Save Details</button>
+    </form>
+
+    <a href="create.html" class="go-home-button" role="button" aria-label="Back to Home">Back to Home</a>
+
+    <div class="success-message" id="successMessage">Profile details saved successfully!</div>
+  </div>
+
+  <script>
+    const detailsEntryForm = document.getElementById('detailsEntryForm');
+    const successMessage = document.getElementById('successMessage');
+
+    detailsEntryForm.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      // Get input values
+      const profileType = document.getElementById('profileType').value;
+      const lengthInMM = document.getElementById('lengthInMM').value;
+      const openingStock = document.getElementById('openingStock').value;
+      const inward = document.getElementById('inward').value;
+
+      // Retrieve existing entries
+      let savedEntries = JSON.parse(localStorage.getItem('profileDataEntries')) || [];
+
+      if (savedEntries.length === 0) {
+        alert('No profile found to update. Please add a profile first.');
+        return;
+      }
+
+      // Update the last entry
+      const lastIndex = savedEntries.length - 1;
+      savedEntries[lastIndex].profileType = profileType;
+      savedEntries[lastIndex].lengthInMM = lengthInMM;
+      savedEntries[lastIndex].openingStock = openingStock;
+      savedEntries[lastIndex].inward = inward;
+
+      localStorage.setItem('profileDataEntries', JSON.stringify(savedEntries));
+
+      // Show success message
+      successMessage.style.display = 'block';
+
+      // Clear form fields
+      detailsEntryForm.reset();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Start Page</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: #f5f7fa;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    h1 {
+      color: #763711;
+      margin-bottom: 40px;
+      font-size: 2.5rem;
+      font-weight: 700;
+      text-align: center;
+    }
+    .button-container {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      width: 100%;
+      max-width: 360px;
+    }
+    .nav-button {
+      padding: 18px;
+      font-size: 1.3rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 10px;
+      background-color: #f9b703;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      text-align: center;
+      text-decoration: none;
+      user-select: none;
+      display: block;
+    }
+    .nav-button:hover {
+      background-color: #f9b703;
+    }
+  </style>
+</head>
+<body>
+  <h1>Sunrack Data Management</h1>
+  <div class="button-container">
+    <a href="entry.html" class="nav-button" role="button">Create Profile</a>
+    <a href="update.html" class="nav-button" role="button">Data Entry</a>
+    <a href="check.html" class="nav-button" role="button">Data Check</a>
+  </div>
+</body>
+</html>
